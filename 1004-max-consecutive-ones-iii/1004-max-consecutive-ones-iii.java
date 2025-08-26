@@ -1,8 +1,8 @@
 class Solution {
     public int longestOnes(int[] nums, int k) {
 
+        // Optimized
 
-        // Slightly optimized 
         int n = nums.length;
         int l=0;
         int r=0;
@@ -12,10 +12,9 @@ class Solution {
             if(nums[r]==0){
                 zeroes++;
             }
-            while(zeroes>k){
+            if(zeroes>k){
                 if(nums[l]==0){
                     zeroes--;
-                    
                 }
                 l++;
             }
@@ -26,6 +25,33 @@ class Solution {
             r++;
         }
         return maxLen;
+        
+        
+        // Slightly optimized 
+
+        // int n = nums.length;
+        // int l=0;
+        // int r=0;
+        // int maxLen=0;
+        // int zeroes=0;
+        // while(r<n){
+        //     if(nums[r]==0){
+        //         zeroes++;
+        //     }
+        //     while(zeroes>k){
+        //         if(nums[l]==0){
+        //             zeroes--;
+                    
+        //         }
+        //         l++;
+        //     }
+        //     if(zeroes<=k){
+        //         int len = r-l+1;
+        //         maxLen = Math.max(len,maxLen);
+        //     }
+        //     r++;
+        // }
+        // return maxLen;
         // Brute Force // 2 pointers
         // int n = nums.length;
         // int maxLen = 0;
