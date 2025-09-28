@@ -15,24 +15,21 @@
  */
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        return check(root)!=-1;
+        if(root==null) return true;
+        if (func(root)==-1) return false;
+        return true;
     }
-    static int check(TreeNode root){
-         if(root==null){
+    public int func(TreeNode root){
+        if(root==null){
             return 0;
-         }
-
-      int  lh= check(root.left);
-      if(lh==-1){
-        return -1;
-      }
-      int  rh= check(root.right);
-      if(rh==-1){
-        return -1;
-      }
-        if(Math.abs(lh-rh)>1){
+        }
+        int left = func(root.left);
+        if(left==-1) return -1;
+        int right = func(root.right);
+        if(right==-1) return -1;
+        if(Math.abs(left-right)>1){
             return -1;
         }
-        return Math.max(rh,lh)+1;
+        return 1+Math.max(left,right);
     }
 }
