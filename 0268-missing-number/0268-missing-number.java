@@ -1,23 +1,15 @@
 class Solution {
     public int missingNumber(int[] nums) {
-    Arrays.sort(nums);
-        int i = 0;
-        int a = 0;
-        int count = 0;
-        if(nums.length==1 && nums[0]!=0){
-            return 0;
+        int n = nums.length;
+        int hash[] = new int[n+1];
+        for(int i=0;i<n;i++){
+            hash[nums[i]]++;
         }
-        while (i < nums.length) {
-            if (nums[i] != i) {
-                a = i;
-                count++;
-                break;
+        for(int i=0;i<=n;i++){
+            if(hash[i]==0){
+                return i;
             }
-            i++;
         }
-        if(i==nums.length && a==0 && count==0){
-            a = nums.length;
-        }
-        return a;
+        return -1;
     }
 }
