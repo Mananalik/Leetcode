@@ -1,44 +1,33 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        int n1 = nums1.length;
-        int n2 = nums2.length;
-        int n = n1+n2;
-        int index2 = n/2;
-        int index1 = index2-1;
-        int cnt = 0;
-        int i = 0;
-        int j=0;
-        int el1 = -1;
-        int el2 = -1;
-        while(i<n1 && j<n2){
-            if(nums1[i]<nums2[j]){
-                if(cnt==index1) el1 = nums1[i];
-                if(cnt==index2) el2 = nums1[i];
-                cnt++;
-                i++;
+        if(nums1.length>nums2.length){
+            return findMedianSortedArrays(nums2,nums1);
+        }
+        int m =nums1.length;
+        int n = nums2.length;
+        int left = 0;
+        int right = m;
+        while(left<=right){
+            int i = left + (right-left)/2;
+            int j = (m+n+1)/2-i;
+            int Aleft = (i==0)?Integer.MIN_VALUE:nums1[i-1];
+            int Aright = (i==m)?Integer.MAX_VALUE:nums1[i];
+            int Bleft = (j==0)?Integer.MIN_VALUE:nums2[j-1];
+            int Bright = (j==n)?Integer.MAX_VALUE:nums2[j];
+
+            if(Aleft<=Bright && Bleft<=Aright){
+                if((m+n)%2==0){
+                    return (Math.max(Aleft,Bleft)+Math.min(Aright,Bright))/2.0;
+                }else{
+                    return (Math.max(Aleft,Bleft));
+                }
+            }
+            else if(Aleft>Bright){
+                right = i-1;
             }else{
-                if(cnt==index1) el1 = nums2[j];
-                if(cnt==index2) el2 = nums2[j];
-                cnt++;
-                j++;
+                left = i+1;
             }
         }
-        while(i<n1){
-            if(cnt==index1) el1 = nums1[i];
-            if(cnt==index2) el2 = nums1[i];
-            cnt++;
-            i++;
-        }
-        while(j<n2){
-            if(cnt==index1) el1 = nums2[j];
-            if(cnt==index2) el2 = nums2[j];
-            cnt++;
-            j++;
-        }
-        if(n%2!=0){
-            return (double) el2;
-        }
-        double x = (double) (el1+el2);
-        return (double) x/2;
+        return 0.0;
     }
 }
