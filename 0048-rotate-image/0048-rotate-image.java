@@ -2,17 +2,13 @@ class Solution {
     public void rotate(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int vis[][] = new int[m][n]; 
-        for(int i=0;i<m;i++){
+      
             for(int j=0;j<n;j++){
-                if(i==j && vis[i][j]==0) vis[i][j]=1;
-                else if (vis[i][j]==0){
+                  for(int i=0;i<j;i++){
                     int temp = matrix[i][j];
                     matrix[i][j] = matrix[j][i];
                     matrix[j][i] = temp;
-                    vis[i][j] = 1;
-                    vis[j][i] = 1;
-                }
+                
             }
         }
         for(int it[]: matrix){
