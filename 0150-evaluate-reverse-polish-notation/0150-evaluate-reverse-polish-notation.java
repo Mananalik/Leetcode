@@ -1,26 +1,37 @@
 class Solution {
     public int evalRPN(String[] tokens) {
-        Stack<Integer> st = new Stack();
-        for (String str:tokens){
-            if (str.equals("+")){
-                st.push(st.pop()+st.pop());
-            }
-            else if(str.equals("*")){
-                int a = st.pop();
-                int b = st.pop();
-                st.push(a*b);
-            }
-            else if(str.equals("/")){
-                int a = st.pop();
-                int b = st.pop();
-                st.push(b/a);
-            }
-            else if(str.equals("-")){
-                int a = st.pop();
-                int b = st.pop();
-                st.push(b-a);
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<tokens.length;i++){
+            String str = tokens[i];
+
+            if(!str.equals("+") && !str.equals("-")  && !str.equals("*")  && !str.equals("/") ){
+                int num = Integer.parseInt(str);
+                st.push(num);
             }else{
-                st.push(Integer.parseInt(str));
+                if(str.equals("+")){
+                    int a = st.pop();
+                    int b = st.pop();
+                    int ans = a+b;
+                    st.push(ans);
+                }
+                else if(str.equals("-")){
+                    int a = st.pop();
+                    int b = st.pop();
+                    int ans = b-a;
+                    st.push(ans);
+                }
+                else if(str.equals("*")){
+                    int a = st.pop();
+                    int b = st.pop();
+                    int ans = b*a;
+                    st.push(ans);
+                }
+                else if(str.equals("/")){
+                    int a = st.pop();
+                    int b = st.pop();
+                    int ans = b/a;
+                    st.push(ans);
+                }
             }
         }
         return st.pop();
