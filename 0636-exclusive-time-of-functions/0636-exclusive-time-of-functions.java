@@ -11,12 +11,9 @@ class Solution {
             if(type.equals("start")){
                 if(!st.isEmpty()){
                     result[st.peek()] += (time-prevTime);
-                    st.push(id);
-                    prevTime = time;
-                }else{
-                    st.push(id);
-                    prevTime = time;
                 }
+                 st.push(id);
+                prevTime = time;
                 
             }else{
                 result[st.peek()]+=(time-prevTime+1);
