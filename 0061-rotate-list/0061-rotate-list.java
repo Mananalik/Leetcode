@@ -18,6 +18,7 @@ class Solution {
             length++;
         }
         k = k%length;
+        if(k==0) return head;
         tail.next = head;
         ListNode newTail = head;
         for(int i=0;i<length-k-1;i++){
