@@ -3,6 +3,7 @@ class Solution {
         int n = temperatures.length;
         int ans[] = new int[n];
         Stack<Integer> st = new Stack<>();
+        ans[n-1] = 0;
         for(int i=0;i<n;i++){
             while(!st.isEmpty() && temperatures[i]>temperatures[st.peek()]){
                 int prev = st.pop();
