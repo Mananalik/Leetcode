@@ -1,30 +1,37 @@
 class Solution {
     public String minWindow(String s, String t) {
-        int freq[] = new int[128];
-        for(char c: t.toCharArray()){
-            freq[c]++;
+        if (s == null || t == null || s.length() < t.length()) return "";
+        Map<Character,Integer> mp = new HashMap<>();
+        for( Character ch: t.toCharArray()){
+            mp.put(ch,mp.getOrDefault(ch,0)+1);
         }
-        int left = 0;
+        int l = 0;
+        int r = 0;
+        int cnt = 0;
+        int n = s.length();
         int minLen = Integer.MAX_VALUE;
-        int count = 0;
-        int start = 0;
-        for(int right=0;right<s.length();right++){
-            if(freq[s.charAt(right)]>0){
-                count++;
+        int startIndex = -1;
+        HashMap<Character,Integer> mp1 = new HashMap<>();
+        while(r<n){
+            char chr = s.charAt(r);
+            mp1.put(chr,mp1.getOrDefault(chr,0)+1);
+            if(mp.containsKey(chr) && mp1.get(chr).equals(mp.get(chr))){
+                cnt++;
             }
-            freq[s.charAt(right)]--;
-            while(count==t.length()){
-                if(right-left+1<minLen){
-                    minLen = right-left+1;
-                    start = left;
+            while(cnt==mp.size()){
+                if(r-l+1<minLen){
+                    minLen = r-l+1;
+                    startIndex=l;
                 }
-                freq[s.charAt(left)]++;
-                if(freq[s.charAt(left)]>0){
-                    count--;
+                char chl = s.charAt(l);
+                mp1.put(chl,mp1.get(chl)-1);
+                if(mp.containsKey(chl) && mp1.get(chl)<mp.get(chl)){
+                    cnt--;
                 }
-                left++;
-            }   
+                l++;
+            }
+            r++;
         }
-        return minLen==Integer.MAX_VALUE? "": s.substring(start,start+minLen);
+        return startIndex==-1? "": s.substring(startIndex,startIndex+minLen);
     }
 }
