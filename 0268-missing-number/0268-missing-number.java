@@ -1,15 +1,11 @@
 class Solution {
     public int missingNumber(int[] nums) {
         int n = nums.length;
-        int hash[] = new int[n+1];
-        for(int i=0;i<n;i++){
-            hash[nums[i]]++;
+        int exp_sum = n*(n+1)/2;
+        int act_sum = 0;
+        for(int num:nums){
+            act_sum+=num;
         }
-        for(int i=0;i<=n;i++){
-            if(hash[i]==0){
-                return i;
-            }
-        }
-        return -1;
+        return exp_sum-act_sum;
     }
 }
